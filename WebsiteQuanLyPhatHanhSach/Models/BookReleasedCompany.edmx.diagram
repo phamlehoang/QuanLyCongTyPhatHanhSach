@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="782db3b8cfc9462d978f27114042778e" Name="Diagram1">
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.AdminA" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Agency" Width="1.5" PointX="1.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Agency_Book" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Agency_Debt" Width="1.5" PointX="11.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Agency_Paid_Debt" Width="1.5" PointX="3.75" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Book" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.BookPrice" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Inventory" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Issue" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.IssueInvoice" Width="1.5" PointX="0.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.OrderA" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.OrderDetail" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.PayForPub" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.PaymentInvoice" Width="1.5" PointX="3" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Pub_Debt" Width="1.5" PointX="11.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Publishing" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Receipt" Width="1.5" PointX="6" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.ReceiptDetail" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.ReportSold" Width="1.5" PointX="6" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.ReportSoldDetail" Width="1.5" PointX="8.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.Revenue" Width="1.5" PointX="3" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhatHanhSachModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Issue_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_IssueInvoice_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Order_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_PayForPub_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_PaymentInvoice_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Receipt_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Report_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Agency_Debt_Agency" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_AgencyBook_Agency" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_IssueInvoice_Agency" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Order_Agency" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Report_Agency" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.FK_Table_Agency" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_AgencyBook_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Agency_Debt_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Agency_Debt_Issue" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Book_Issue" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Book_Pub" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_BookPrice_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_ODetail_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_ReDetail_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Report_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Invent_Issue" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Invent_Receipt" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Issue_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_PayForPub_IInvoice" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.FK_ReportSold_InvoiceID" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.FK_Revenue_IInvoice" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_ODetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_PayForPub_PInvoice" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_PayForPub_Pub" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_PaymentInvoice_Pub" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Pub_Debt_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Pub_Debt_Pub" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Pub_Debt_Receipt" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Receipt_Pub" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_ReDetail_Receipt" ManuallyRouted="false" />
+        <AssociationConnector Association="QLPhatHanhSachModel.fk_Report_Detail" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

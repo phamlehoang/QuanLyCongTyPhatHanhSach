@@ -1,0 +1,74 @@
+﻿@model WebsiteQuanLyPhatHanhSach.Models.Book
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Book</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BookName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BookName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BookCategory)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BookCategory)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BookAuthor)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BookAuthor)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BookPages)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BookPages)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BookDescribe)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BookDescribe)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Publishing.PubName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Publishing.PubName)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ISBN }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

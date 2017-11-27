@@ -1,0 +1,193 @@
+﻿@model WebsiteQuanLyPhatHanhSach.ViewModels.BookVM
+
+@{ 
+    Layout = null;
+}
+@using(Html.BeginForm("Create", "Books", FormMethod.Post, new { id = "popupForm" }))
+{
+    <div class="modal-content" id="modalID">
+        <div class="modal-header">
+            <h4 class="modal-title"><label id="title">Add new</label></h4>
+        </div>
+        <div class="modal-body">
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control", @id = "isbnID" } })
+                        @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
+                    </div>
+                @*</div>
+
+                <div class="form-group">*@
+                    @Html.LabelFor(model => model.BookName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BookName, new { htmlAttributes = new { @class = "form-control", @id = "nameID" } })
+                        @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BookCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BookCategory, new { htmlAttributes = new { @class = "form-control", @id = "cateID" } })
+                        @Html.ValidationMessageFor(model => model.BookCategory, "", new { @class = "text-danger" })
+                    </div>
+                @*</div>
+
+                <div class="form-group">*@
+                    @Html.LabelFor(model => model.PubID, "Publishing", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("PubID", ViewBag.PubID as SelectList, htmlAttributes: new { @class = "form-control select2", @id = "pubID" })
+                        @Html.ValidationMessageFor(model => model.PubID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BookAuthor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BookAuthor, new { htmlAttributes = new { @class = "form-control", @id = "authorID" } })
+                        @Html.ValidationMessageFor(model => model.BookAuthor, "", new { @class = "text-danger" })
+                    </div>
+                @*</div>
+
+                <div class="form-group">*@
+                    @Html.LabelFor(model => model.BookPages, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BookPages, new { htmlAttributes = new { @class = "form-control", @id = "pagesID" } })
+                        @Html.ValidationMessageFor(model => model.BookPages, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PurchasePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.PurchasePrice, new { htmlAttributes = new { @class = "form-control", @id = "purchaseID" } })
+                        @Html.ValidationMessageFor(model => model.PurchasePrice, "", new { @class = "text-danger" })
+                    </div>
+                    @*</div>
+
+                    <div class="form-group">*@
+                    @Html.LabelFor(model => model.SellingPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.SellingPrice, new { htmlAttributes = new { @class = "form-control", @id = "sellingID" } })
+                        @Html.ValidationMessageFor(model => model.SellingPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BookDescribe, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BookDescribe, new { htmlAttributes = new { @class = "form-control", @id = "desID" } })
+                        @Html.ValidationMessageFor(model => model.BookDescribe, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="submit" type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                    @*<div style="padding:10px 0; text-align:right">
+                        <input id="submit" type="button" value="Save" class="btn btn-warning" style="padding:10px 20px" />
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    span.text-danger {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.text-danger {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$(function () {
+            //    $('#popupForm').on('submit', function (e) {
+            //        e.preventDefault();
+            //        alert("hi");
+            //        SubmitForm();
+            //    })
+            //});
+            //function SubmitForm() {
+            //    var isAllValid = true;
+
+            //    if ($('#isbnID').val().trim() == '') {
+            //        $('#isbnID').siblings('span.text-danger').css('visibility', 'visible');
+            //        isAllValid = false;
+            //    }
+            //    else {
+            //        $('#isbnID').siblings('span.text-danger').css('visibility', 'hidden');
+            //    }
+
+            //    if ($('#purchaseID').val().trim() == '') {
+            //        $('#purchaseID').siblings('span.text-danger').css('visibility', 'visible');
+            //        isAllValid = false;
+            //    }
+            //    else {
+            //        $('#purchaseID').siblings('span.text-danger').css('visibility', 'hidden');
+            //    }
+
+            //    if ($('#sellingID').val().trim() == '') {
+            //        $('#sellingID').siblings('span.text-danger').css('visibility', 'visible');
+            //        isAllValid = false;
+            //    }
+            //    else {
+            //        $('#sellingID').siblings('span.text-danger').css('visibility', 'hidden');
+            //    }
+
+            //    if (isAllValid) {
+            //        var data = {
+            //            ISBN: $('#isbnID').val().trim(),
+            //            BookName: $('#nameID').val().trim(),
+            //            BookCategory: $('#cateID').val().trim(),
+            //            PubID: $('#pubID').val().trim(),
+            //            BookAuthor: $('#authorID').val().trim(),
+            //            BookPages: $('#pagesID').val().trim(),
+            //            BookDescribe: $('#desID').val().trim(),
+            //            PurchasePrice: $('#purchaseID').val().trim(),
+            //            SellingPrice: $('#sellingID').val().trim(),
+            //        }
+
+            //        $.ajax({
+            //            type: 'POST',
+            //            url: '/Books/Create',
+            //            data: JSON.stringify(data),
+            //            contentType: 'application/json',
+            //            success: function (data) {
+            //                if (data.status) {
+            //                    alert('Successfully saved');
+            //                    $('#modalID').modal('hide');
+            //                    window.location.href = "/Books/Index";
+            //                    $("#listbook").ajax.reload();
+            //                }
+            //                else {
+            //                    alert('Error');
+            //                }
+            //            },
+            //            error: function (error) {
+            //                console.log(error);
+            //            }
+            //        });
+            //    }
+            //}
+            $('.select2').select2()
+            //$('#submit').click(function () {
+                
+
+            //});
+        });
+    </script>
+}

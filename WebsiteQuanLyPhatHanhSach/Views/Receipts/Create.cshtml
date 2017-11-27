@@ -1,0 +1,383 @@
+﻿@model WebsiteQuanLyPhatHanhSach.Models.Receipt
+
+@{
+    ViewBag.Title = "Receipt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Nhập Sách
+        <small>it all starts here</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Manage","BookManage")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Nhập sách</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Nhập sách</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4><b>Thông tin phiếu nhập</b></h4>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">AdminID</label>
+                    <div class="col-md-4">
+                        <input readonly type="text" id="adminID" class="form-control" value="@Session["AdminID"]" />
+                        <span class="text-danger">Admin ID required</span>
+                    </div>
+                    @Html.LabelFor(model => model.PubID, "Publishing", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("PubID", ViewBag.PubID as SelectList,"Chọn nhà xuất bản", htmlAttributes: new { @class = "form-control select2", @id = "pubID"})
+                        @Html.ValidationMessageFor(model => model.PubID, "", new { @class = "text-danger" })
+                    </div>
+                    <a href="@Url.Action("Create","Publishings")" id="btnAddNew" class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                        <i class="fa fa-plus"></i> Add
+                    </a>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Deliver, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Deliver, new { htmlAttributes = new { @class = "form-control", @style = "border:none; border-bottom:1px solid grey", @id = "deliverID" } })
+                        @Html.ValidationMessageFor(model => model.Deliver, "Deliver required", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.ReceiptCreate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ReceiptCreate, new { htmlAttributes = new { @type = "date", @class = "form-control", @style = "border:none; border-bottom:1px solid grey", @id = "dateID" } })
+                        @Html.ValidationMessageFor(model => model.ReceiptCreate, "Date required", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReceiptTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ReceiptTotal, new { htmlAttributes = new {@readonly="readonly", @class = "form-control", @style = "border:none; border-bottom:1px solid grey", @id = "totalID" } })
+                        @Html.ValidationMessageFor(model => model.ReceiptTotal, "", new { @class = "text-danger" })
+                    </div>
+                    @*<input id="test" value="..........."/>*@
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="details">
+                <h4><b>Dánh sách Tài liệu</b></h4>
+                <table class="table table-condensed table-hover table-striped" id="mytable">
+                    <thead>
+                        <tr>
+                            <td>Book Name</td>
+                            <td>ISBN</td>
+                            <td>Quantity</td>
+                            <td>Price</td>
+                            <td>Total</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr @*class="mycontainer" id="mainrow"*@>
+                            <td class="col-md-2">
+                                <select id="bookname" class="form-control select2"></select>
+                                <span class="text-danger">Select book</span>
+                            </td>
+                            <td>
+                                <input readonly type="text" id="isbn" class=" form-control" />
+                            </td>
+                            <td>
+                                <input type="text" id="quantity" class="form-control" />
+                                <span class="text-danger">Valid quantity required</span>
+                            </td>
+                            <td>
+                                <input readonly type="text" id="price" class=" form-control" />
+                                <span class="text-danger">Valid price required</span>
+                            </td>
+                            <td>
+                                <input readonly type="text" id="total" class=" form-control" />
+                            </td>
+                            <td>
+                                <span id ="add" class="btn btn-success col-md-12 fa fa-plus"></span>
+                                @*<input type="button" id="add" value="+ Add" style="width:80px" class="btn btn-success" />*@
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span id="orderItemError" style="color:red"></span>
+                @*<div id="orderItems">
+                    <table class="table table-responsive" id="orderdetailsItems"></table>
+                    <span id="orderItemError" style="color:red"></span>
+                </div>*@
+                <div style="padding:10px 0; text-align:right">
+                    <input id="submit" type="button" value="Save" class="btn btn-warning" style="padding:10px 20px" />
+                </div>
+            </div>
+        </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                Footer
+            </div>
+            <!-- /.box-footer-->
+        </div>
+    <!-- /.box -->
+</section>
+<!-- /.content -->
+<link rel="stylesheet" href="~/Content/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+<style>
+    span.text-danger {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.text-danger {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+@*scripts*@
+
+@section Scripts{
+    <script src="~/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+
+        function CalculateTotal() {
+            var sum = 0;
+            $('#mytable > tbody tr ').not(':first').each(function (index, ele) {
+                var total = parseInt($($(this).find('td input:eq(4)')).val());
+                sum += total;
+            });
+            $('#totalID').val(sum);
+        }
+
+        function CalclateTotalDetail() {
+            var value = $('#quantity').val();
+            var value2 = $('#price').val();
+            $('#total').val(value * value2);
+        }
+
+        function remove(e) {
+            $(e).closest('tr').remove();
+            CalculateTotal()
+        }
+        //khi add thêm sách
+        function Setup1() {
+            CalculateTotal()
+            $('#quantity,#total').val('');
+            $('#orderItemError').empty();
+        }
+        //phát triển thêm
+        function Change(isbn) {
+            //var quatityid = "#quatity" + isbn;
+            //var priceid = "#price" + isbn;
+            //var totalid = "#total" + isbn;
+            //$('#test').val(quatityid);
+            //var value = $(quatityid).val();
+            //var value2 = $(priceid).val();
+            //$(totalid).val(value * value2);
+        }
+
+        $(function () {
+            $('#pubID').change(function () {
+                $.get("/Receipts/GetBook", { pubid: $('#pubID').val() }, function (data) {
+                    $('#bookname').empty();
+                    $('#bookname').append("<option value='-1'>Select</option>")
+                    $.each(data, function (index, row) {
+                        $('#bookname').append("<option value='" + row.ISBN + "'>" + row.BookName + "</option>");
+                    })
+                })
+            });
+            $('#bookname').change(function () {
+                var isbn = $('#bookname').val();
+                $('#isbn').val(isbn);
+                $.get("/Receipts/GetPrice", { isbn: $('#bookname').val() }, function (data1) {
+                    $.each(data1, function (index, row) {
+                        $('#price').val(row.PurchasePrice)
+                        CalclateTotalDetail()
+                    })
+                })
+                
+                CalculateTotal()
+            });
+            //$('#price').change(function () {
+            //    var value = $(this).val();
+            //    var value2 = $('#quantity').val();
+            //    $('#total').val(value * value2);
+            //}).change();
+
+            $('#quantity').keyup(function () {
+                var value = $(this).val();
+                var value2 = $('#price').val();
+                $('#total').val(value * value2);
+            }).keyup();
+
+        });
+
+        $(document).ready(function () {
+            $('#totalID').val(0);
+            //$('#dateID').datepicker({
+            //    autoclose: true
+            //})
+            $('.select2').select2()
+            //Add button click event
+            $('#add').click(function () {
+                //validation and add order items
+                var isAllValid = true;
+                if ($('#bookname').val() == "-1") {
+                    isAllValid = false;
+                    $('#bookname').siblings('span.text-danger').css('visibility', 'visible');
+                }
+                else {
+                    $('#bookname').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if ($('#isbn').val() == "") {
+                    isAllValid = false;
+                    $('#isbn').siblings('span.text-danger').css('visibility', 'visible');
+                }
+                else {
+                    $('#isbn').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if (!($('#quantity').val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
+                    isAllValid = false;
+                    $('#quantity').siblings('span.text-danger').css('visibility', 'visible');
+                }
+                else {
+                    $('#quantity').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if (!($('#price').val().trim() != '' && !isNaN($('#price').val().trim()))) {
+                    isAllValid = false;
+                    $('#price').siblings('span.text-danger').css('visibility', 'visible');
+                }
+                else {
+                    $('#price').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if (!($('#total').val().trim() != '' && !isNaN($('#total').val().trim()))) {
+                    isAllValid = false;
+                    $('#total').siblings('span.text-danger').css('visibility', 'visible');
+                }
+                else {
+                    $('#total').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if (isAllValid) {
+                    $('#mytable > tbody').append('<tr class="mycontainer" id="mainrow"><td>' +
+                        '<input readonly id="bookname' + $('#bookname').val() +'" class="form-control" value="' + $('#bookname :selected').text() + '"/></td><td>' +
+                        '<input readonly type="text" id="isbn' + $('#bookname').val() +'" class="form-control" value="' + $('#isbn').val() + '"/></td><td>' +
+                        '<input readonly onkeyup="Change(' + $('#bookname').val() + ')" type="number" id="quantity' + $('#bookname').val() +'" class="form-control" value="' + $('#quantity').val() + '"/></td><td>' +
+                        '<input readonly onkeyup="Change(' + $('#bookname').val() + ')" type="number" id="price' + $('#bookname').val() +'" class=" form-control" value="' + $('#price').val() + '"/></td><td>' +
+                        '<input readonly type="number" id="total' + $('#bookname').val() +'" class="form-control" value="' + $('#total').val() + '"/></td><td>' +
+                            '<span class="btn btn-danger col-md-12 fa fa-trash" onclick=remove(this)></span></td></tr>');
+                    //calculate total
+                    Setup1();
+                }
+
+            });
+
+            $('#submit').click(function () {
+                var isAllValid = true;
+
+                //validate order items
+                $('#orderItemError').text('');
+                var list = [];
+                var errorItemCount = 0;
+                $('#mytable > tbody tr ').not(':first').each(function (index, ele) {
+                    var orderItem = {
+                        ISBN: $($(this).find('td input:eq(1)')).val(),
+                        ReceiptQuatity: $($(this).find('td input:eq(2)')).val(),
+                        BookPrice: $($(this).find('td input:eq(3)')).val(),
+                        BookTotal: $($(this).find('td input:eq(4)')).val()
+                    }
+                    list.push(orderItem);
+                })
+
+                if (list.length == 0) {
+                    $('#orderItemError').text('At least 1 item required.');
+                    isAllValid = false;
+                }
+
+                if ($('#pubID').val().trim() == '') {
+                    $('#pubID').siblings('span.text-danger').css('visibility', 'visible');
+                    isAllValid = false;
+                }
+                else {
+                    $('#pubID').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if ($('#deliverID').val().trim() == '') {
+                    $('#deliverID').siblings('span.text-danger').css('visibility', 'visible');
+                    isAllValid = false;
+                }
+                else {
+                    $('#deliverID').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if ($('#dateID').val().trim() == '') {
+                    $('#dateID').siblings('span.text-danger').css('visibility', 'visible');
+                    isAllValid = false;
+                }
+                else {
+                    $('#dateID').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+
+                if (isAllValid) {
+                    var data = {
+                        AdminID: $('#adminID').val().trim(),
+                        PubID: $('#pubID').val().trim(),
+                        Deliver: $('#deliverID').val().trim(),
+                        Date: document.getElementById("dateID").value,
+                        Total: $('#totalID').val().trim(),
+                        Details: list
+                    }
+
+                    $(this).val('Please wait...');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Receipts/CreateReceipt',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data.status) {
+                                alert('Successfully saved');
+                                //here we will clear the form
+                                list = [];
+                                $('#bookname').val('-1');
+                                $('#deliverID,#totalID').val('');
+                                $('#mytable > tbody tr').not(':first').closest('tr').remove();
+                            }
+                            else {
+                                alert('Error');
+                            }
+                            $('#submit').val('Save');
+                        },
+                        error: function (error) {
+                            console.log(error);
+                            $('#submit').val('Save');
+                        }
+                    });
+                }
+
+            });
+
+
+        });
+
+
+    </script>
+}

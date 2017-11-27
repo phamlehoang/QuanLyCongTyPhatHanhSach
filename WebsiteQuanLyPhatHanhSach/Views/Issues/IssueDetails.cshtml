@@ -1,0 +1,131 @@
+﻿@using WebsiteQuanLyPhatHanhSach.Models
+@model dynamic
+
+@{
+    ViewBag.Title = "IssueDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Chi tiết Order
+        <small>advanced tables</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Manage","BookManage")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="@Url.Action("Index","Issues")">Xuất sách</a></li>
+        <li class="active">Chi tiết order</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Thông tin Xuất sách</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="issuetable" class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>IssueID</th>
+                                <th>OrderID </th>
+                                <th>AdminName </th>
+                                <th>IssueCreate</th>
+                                <th>Recepient </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Issue item in Model.Issue)
+                            {
+                                <tr>
+                                    <td>@item.IssueID</td>
+                                    <td>@item.OrderID</td>
+                                    <td>@item.AdminA.AdminName</td>
+                                    <td>@item.IssueCreate</td>
+                                    <td>@item.Recepient</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-body">
+                    <table id="ordertable" class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>OrderID</th>
+                                <th>AgencyID</th>
+                                <th>AgencyName</th>
+                                <th>OrderCreate</th>
+                                <th>OrderTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (OrderA item in Model.Order)
+                            {
+                                <tr>
+                                    <td>@item.OrderID</td>
+                                    <td>@item.AgencyID</td>
+                                    <td>@item.Agency.AgencyName</td>
+                                    <td>@item.OrderCreate</td>
+                                    <td>@item.OrderTotal</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-body">
+                    <table id="orderdetail" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>OrderID</th>
+                                <th>ISBN</th>
+                                <th>BookName</th>
+                                <th>BookPrice</th>
+                                <th>BookTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (OrderDetail item in Model.OrderDetail)
+                            {
+                                <tr>
+                                    <td>@item.OrderID</td>
+                                    <td>@item.ISBN</td>
+                                    <td>@item.Book.BookName</td>
+                                    <td>@item.BookPrice</td>
+                                    <td>@item.BookTotal</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+<link href="~/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<style>
+    tr.center > th {
+        text-align: center
+    }
+</style>
+@*scripts*@
+
+@section Scripts{
+    <script src="~/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#orderdetail').DataTable({
+                
+            });
+        });
+    </script>
+}

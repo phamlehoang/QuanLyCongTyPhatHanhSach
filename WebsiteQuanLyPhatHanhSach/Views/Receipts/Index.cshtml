@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebsiteQuanLyPhatHanhSach.Models.Receipt>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Deliver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceiptCreate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceiptTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdminA.AdminName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publishing.PubName)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deliver)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiptCreate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiptTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdminA.AdminName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publishing.PubName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ReceiptID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ReceiptID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ReceiptID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

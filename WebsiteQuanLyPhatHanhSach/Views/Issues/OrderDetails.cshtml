@@ -1,0 +1,231 @@
+﻿@using WebsiteQuanLyPhatHanhSach.ViewModels
+@using WebsiteQuanLyPhatHanhSach.Models
+@model dynamic
+
+@{
+    ViewBag.Title = "OrderDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Chi tiết Order
+        <small>advanced tables</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Manage","BookManage")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="@Url.Action("Index","Issues")">Xuất sách</a></li>
+        <li class="active">Chi tiết order</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Thông tin Order</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>OrderID</th>
+                                <th>AgencyID</th>
+                                <th>AgencyName</th>
+                                <th>AgencyDebt</th>
+                                <th>Recepient</th>
+                            </tr>
+                        </thead>
+                        <tbody>        
+                            @foreach (AgencyDebtVM item in Model.AgencyDebt)
+                            {
+                                <tr>
+                                    <td id="orderid"></td>
+                                    <td id="id">@item.AgencyID</td>
+                                    <td id="name">@item.AgencyName</td>
+                                    <td id="debt">@item.AgencyDebt</td>
+                                    <td>
+                                        <input style="border-bottom:1px solid grey;" id="recepient" placeholder="Người nhận" value="" />
+                                        <span class="text-danger">Valid recepient required</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-body">
+                    <table id="orderdetail"  class="table table-bordered table-striped">
+                        <thead>
+                            <tr class="center">
+                                <th>OrderID</th>
+                                <th>ISBN</th>
+                                <th>BookName</th>
+                                <th>OrderQuantity</th>
+                                <th>BookPrice</th>
+                                <th>BookTotal</th>
+                                <th>InventoryQua</th>
+                                <th hidden>OrderTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (OrderDetailVM item in Model.OrderDetail)
+                            {
+                                <tr>
+                                    <td>@item.OrderID</td>
+                                    <td>@item.ISBN</td>
+                                    <td>@item.BookName</td>
+                                    <td>@item.OrderQuantity</td>
+                                    <td>@item.BookPrice</td>
+                                    <td>@item.BookTotal</td>
+                                    <td>@item.InventoryQua</td>
+                                    <td hidden>@item.OrderTotal</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-body">
+                    <span id="debtError" style="color:red"></span><br />
+                    <span id="quantityError" style="color:red"></span>
+                    <div style="padding:10px 0; text-align:right">
+                        <label style="font-size:large">Tổng cộng : </label>
+                        <input readonly style="border:none; border-bottom:1px solid grey;color:green;font-size:large" id="totalorder" value="0" />&nbsp;
+                        <input id="cancleOrder" type="button" value="Hủy" class="btn btn-warning" style="padding:10px 20px" />
+                        <input id="submitOrder" type="button" value="Xuất sách" class="btn btn-success" style="padding:10px 20px" />
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+<link href="~/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<style>
+    tr.center > th {
+        text-align: center
+    }
+    td.restock {
+        font-weight: bold;
+        color: red;
+    }
+    td.available {
+        font-weight: bold;
+        color: green;
+    }
+    td.default {
+        font-weight: bold;
+        color: black;
+    }
+    span.text-danger {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+</style>
+@*scripts*@
+
+@section Scripts{
+    <script src="~/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#orderdetail').DataTable({
+                order: [[0, 'desc']],
+                createdRow: function (row, data, index) {
+                    var a = $('td', row).eq(3);
+                    $('td', row).eq(6).addClass('default');
+                    if (data[3]*1 <= data[6]*1) {
+                        a.addClass('available');
+                    }
+                    else if (data[3]*1 > data[6]*1) {
+                        a.addClass('restock');
+                        $('#quantityError').text('Số lượng sách tồn kho không đủ đáp ứng Đơn hàng');
+                        $('#submitOrder').prop("disabled", true);
+                    }
+                    $('#totalorder').val(data[7]);
+                    $('#orderid').text(data[0]);
+                }
+            });
+            var isAllValid = true;
+            if ($('#totalorder').val() * 1 > $('#debt').text() * 1 && $('#debt').text() != '0') {
+                isAllValid = false;
+                $('#debtError').text('Tổng tiền của Đơn hàng lớn hơn Công nợ!!!');
+                //$('#submitOrder').addClass('disabled');
+                $('#submitOrder').prop("disabled", true);
+            };
+            $('#cancleOrder').click(function () {
+
+            });
+            $('#submitOrder').click(function () {
+
+                isAllValid = true;
+                if ($('#recepient').val().trim() == '') {
+                    $('#recepient').siblings('span.text-danger').css('visibility', 'visible');
+                    isAllValid = false;
+                }
+                else {
+                    $('#recepient').siblings('span.text-danger').css('visibility', 'hidden');
+                }
+                if (isAllValid) {
+                    var list = [];
+                    $('#orderdetail').find('tbody > tr').each(function (index, ele) {
+                        var orderItem = {
+                            //lưu ý 'td:eq() input' và 'td input:eq()'
+                            OrderID: $('#orderid').text(),
+                            ISBN: $($(this).find('td:eq(1)')).text(),
+                            OrderQuantity: $($(this).find('td:eq(3)')).text(),
+                            BookPrice: $($(this).find('td:eq(4)')).text(),
+                            BookTotal: $($(this).find('td:eq(5)')).text()
+                        }
+                        list.push(orderItem);
+                    });
+                    var data = {
+                        IssueID: null,
+                        OrderID: $('#orderid').text(),
+                        IssueCreate: null,
+                        AdminIssue: @Session["AdminID"],
+                        Recepient: $('#recepient').val(),
+                        AgencyID: $('#id').text(),
+                        AgencyIssueDebt: $('#totalorder').val(),
+                        Details : list
+                    }
+                    console.log(data);
+
+                    $(this).val('Please wait...');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Issues/CreateIssue',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data.status) {
+                                alert('Successfully saved');
+                                //here we will clear the form
+                                $('#submitOrder').val('Đã xuất');
+                                $('#submitOrder').prop("disabled", true);
+                                $('#cancleOrder').prop("disabled", true);
+                                window.location.href = "/Issues/Index";
+                            }
+                            else {
+                                alert('Error');
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                            $('#submitOrder').val('Xuất sách');
+                        }
+                    });
+                }
+            });
+        }); // document ready
+
+    </script>
+}

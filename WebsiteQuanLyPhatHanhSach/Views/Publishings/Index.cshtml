@@ -1,0 +1,100 @@
+﻿@model IEnumerable<WebsiteQuanLyPhatHanhSach.Models.Publishing>
+
+@{
+    ViewBag.Title = "Publishing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Nhà xuất bản
+        <small>advanced tables</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Manage","BookManage")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Nhà xuất bản</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Danh sách Nhà xuất bản</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <p>
+                        <a href="@Url.Action("Create","Publishings")" id="btnAddNew" class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                            <i class="fa fa-plus"></i> Add New
+                        </a>
+                    </p>
+                    <table id="publishing" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.PubID)</th>
+                                <th>@Html.DisplayNameFor(model => model.PubName)</th>
+                                <th>@Html.DisplayNameFor(model => model.PubAdr)</th>
+                                <th>@Html.DisplayNameFor(model => model.PubPhone)</th>
+                                <th>@Html.DisplayNameFor(model => model.AccountNum)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.PubID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PubName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PubAdr)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PubPhone)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AccountNum)</td>
+                                    <td>
+                                        <a><i class="fa fa-money"></i></a> @Html.ActionLink("Payment", "Details", "PayForPub", new { id = item.PubID }, null) | 
+                                        <a href="@Url.Action("Edit","Publishings",routeValues: new { id=item.PubID})" id="btnEdit" class="btn-link" data-toggle="modal" data-target="#myModal">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.PubID)</th>
+                                <th>@Html.DisplayNameFor(model => model.PubName)</th>
+                                <th>@Html.DisplayNameFor(model => model.PubAdr)</th>
+                                <th>@Html.DisplayNameFor(model => model.PubPhone)</th>
+                                <th>@Html.DisplayNameFor(model => model.AccountNum)</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <link href="~/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+
+@*scripts*@
+
+@section Scripts{
+    <script src="~/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#publishing').DataTable()
+
+        }); // document ready
+
+    </script>
+}

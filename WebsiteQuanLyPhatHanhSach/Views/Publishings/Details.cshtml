@@ -1,0 +1,58 @@
+﻿@model WebsiteQuanLyPhatHanhSach.Models.Publishing
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Publishing</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PubName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PubName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PubAdr)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PubAdr)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PubPhone)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PubPhone)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.AccountNum)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.AccountNum)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PubID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

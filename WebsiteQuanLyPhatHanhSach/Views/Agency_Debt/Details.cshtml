@@ -1,0 +1,105 @@
+﻿@model IEnumerable<WebsiteQuanLyPhatHanhSach.Models.Agency_Debt>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int agencyid = Model.First().AgencyID;
+    string username = Model.First().Agency.AgencyUser;
+    string agencyname = Model.First().Agency.AgencyName;
+    int id = Model.Max(a => a.ADebtID);
+    string agencydebt = Model.Where(a => a.ADebtID == id).Select(a => a.AgencyDebt).First().ToString();
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Công nợ
+        <small>advanced tables</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Manage","BookManage")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="@Url.Action("Index","Agency_Debt")"> Công nợ</a></li>
+        <li class="active"> Chi tiết công nợ</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Danh sách</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="debtdetail" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th><b>AgencyID : @agencyid</b></th>
+                                <th colspan="2"><b>Username : @username</b></th>
+                                <th colspan="2"><b>Tên đại lý : @agencyname</b></th>
+                                <th colspan="2"><b>Công nợ : @agencydebt</b></th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">ID</th>
+                                <th rowspan="2">Ngày</th>
+                                <th colspan="2">Chứng từ</th>
+                                <th colspan="2">Số tiền</th>
+                                <th rowspan="2">Công nợ</th>
+                            </tr>
+                            <tr>
+                                <th>Mã đặt sách</th>
+                                <th>Mã phiếu trả tiền</th>
+                                <th>Nợ (khi đặt sách)</th>
+                                <th>Đã thanh toán</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.ADebtID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DateCreate)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.IssueID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InvoiceID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AgencyIssueDebt)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AgencyInvoicePaid)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AgencyDebt)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+<link href="~/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<style>
+    th {
+        text-align: center
+    }
+
+    td {
+        text-align: center
+    }
+</style>
+@*scripts*@
+
+@section Scripts{
+    <script src="~/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/custome-js/dateformat.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#debtdetail').DataTable({
+
+            });
+        });
+    </script>
+}

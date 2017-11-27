@@ -1,0 +1,66 @@
+﻿@model WebsiteQuanLyPhatHanhSach.Models.Receipt
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Receipt</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Deliver)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Deliver)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ReceiptCreate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ReceiptCreate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ReceiptTotal)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ReceiptTotal)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.AdminA.AdminName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.AdminA.AdminName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Publishing.PubName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Publishing.PubName)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ReceiptID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

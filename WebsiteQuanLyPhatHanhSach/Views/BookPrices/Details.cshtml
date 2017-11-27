@@ -1,0 +1,50 @@
+﻿@model WebsiteQuanLyPhatHanhSach.Models.BookPrice
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>BookPrice</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PurchasePrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PurchasePrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SellingPrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SellingPrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Book.BookName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Book.BookName)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
