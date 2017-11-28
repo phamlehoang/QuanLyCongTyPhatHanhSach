@@ -180,6 +180,23 @@ namespace WebsiteQuanLyPhatHanhSach.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
+        public JsonResult CancleIssue(int orderid, int? admincancle)
+        {
+            bool status = false;
+            if (ModelState.IsValid)
+            {
+                //Đổi trạng thái cột OrderStatus và thêm dữ liệu vào cột AdminConfirm.
+                OrderA order = db.OrderAs.Find(orderid);
+                order.OrderStatus = 2;
+                order.AdminConfirm = admincancle;
+                db.Entry(order).State = EntityState.Modified;
+                
+                db.SaveChanges();
+                status = true;
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+
         // GET: Issues/IssueDetails/5
         public ActionResult IssueDetails(int? id)
         {
@@ -201,6 +218,8 @@ namespace WebsiteQuanLyPhatHanhSach.Controllers
             }
             return View(mymodel);
         }
+
+
 
         protected override void Dispose(bool disposing)
         {

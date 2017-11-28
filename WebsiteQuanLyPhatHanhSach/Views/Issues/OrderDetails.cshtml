@@ -161,7 +161,31 @@
                 $('#submitOrder').prop("disabled", true);
             };
             $('#cancleOrder').click(function () {
-
+                var OrderID = parseInt($('#orderid').text(),10);
+                var AdminID = parseInt(@Session["AdminID"],10);
+                $.ajax({
+                    type: 'POST',
+                    url: '/Issues/CancleIssue',
+                    data: JSON.stringify({ orderid: OrderID, admincancle: AdminID }),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.status) {
+                            alert('Successfully cancled');
+                            //here we will clear the form
+                            $('#submitOrder').val('Đã hủy');
+                            $('#submitOrder').prop("disabled", true);
+                            $('#cancleOrder').prop("disabled", true);
+                            window.location.href = "/Issues/Index";
+                        }
+                        else {
+                            alert('Error');
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#submitOrder').val('Xuất sách');
+                    }
+                });
             });
             $('#submitOrder').click(function () {
 
@@ -194,7 +218,7 @@
                         Recepient: $('#recepient').val(),
                         AgencyID: $('#id').text(),
                         AgencyIssueDebt: $('#totalorder').val(),
-                        Details : list
+                        Details: list
                     }
                     console.log(data);
 
@@ -224,7 +248,7 @@
                         }
                     });
                 }
-            });
+        });
         }); // document ready
 
     </script>

@@ -25,7 +25,7 @@ namespace WebsiteQuanLyPhatHanhSach.Models
         public int AgencyID { get; set; }
         public Nullable<int> AdminConfirm { get; set; }
         public System.DateTime OrderCreate { get; set; }
-        public Nullable<int> OrderStatus { get; set; }
+        public int OrderStatus { get; set; }
         public decimal OrderTotal { get; set; }
     
         public virtual AdminA AdminA { get; set; }
